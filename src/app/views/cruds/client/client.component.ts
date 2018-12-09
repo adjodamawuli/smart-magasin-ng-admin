@@ -59,7 +59,7 @@ export class ClientComponent implements OnInit {
   }
 
   openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? 'Add new member' : 'Update member';
+    let title = isNew ? 'Ajout d\'un nouveau client' : 'Modification du client';
     let dialogRef: MatDialogRef<any> = this.dialog.open(ClientPopupComponent, {
       width: '720px',
       disableClose: true,
