@@ -1,8 +1,10 @@
+import { ClientPopupComponent } from './client/client-popup/client-popup.component';
+import { ClientService } from './../sessions/service/client.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { 
+import {
   MatInputModule,
   MatIconModule,
   MatCardModule,
@@ -13,7 +15,7 @@ import {
   MatTooltipModule,
   MatDialogModule,
   MatSnackBarModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
  } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -23,6 +25,7 @@ import { CrudNgxTableComponent } from './crud-ngx-table/crud-ngx-table.component
 import { CrudsRoutes } from './cruds.routing';
 import { CrudService } from './crud.service';
 import { NgxTablePopupComponent } from './crud-ngx-table/ngx-table-popup/ngx-table-popup.component'
+import { ClientComponent } from './client/client.component';
 
 @NgModule({
   imports: [
@@ -44,8 +47,11 @@ import { NgxTablePopupComponent } from './crud-ngx-table/ngx-table-popup/ngx-tab
     SharedModule,
     RouterModule.forChild(CrudsRoutes)
   ],
-  declarations: [CrudNgxTableComponent, NgxTablePopupComponent],
-  providers: [CrudService],
-  entryComponents: [NgxTablePopupComponent]
+  declarations: [CrudNgxTableComponent, NgxTablePopupComponent,
+    ClientComponent, ClientPopupComponent
+],
+  providers: [CrudService,ClientService],
+  entryComponents: [NgxTablePopupComponent, ClientPopupComponent
+  ]
 })
 export class CrudsModule { }

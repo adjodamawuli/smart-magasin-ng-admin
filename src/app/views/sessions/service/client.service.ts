@@ -1,19 +1,32 @@
 import { Client } from './../model/client';
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { tap, catchError, delay } from 'rxjs/operators';
 
 @Injectable()
 export class ClientService {
 
-  private readonly API_URL = 'http://localhost:8080/smart/clients/';
+  private readonly API_URL = 'http://192.168.1.92:8080/smart/clients/';
 
   dataChange: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
+  items: any[];
 
   constructor (private httpClient: HttpClient) {}
 
+  setItems(items){
+    this.items = items;
+  }
+  getItems(){
+    return of(this.items.slice()).pipe(delay(1000))
+  }
+  getClients() {
+    return this.httpClient.get < Client[] > (this.API_URL);
+  }
+
+  // old
   get data(): Client[] {
     return this.dataChange.value;
   }
@@ -37,10 +50,12 @@ export class ClientService {
     this.dialogData = client;
   }*/
 
-  /*updateClient (client: Client): void {
-    this.dialogData = client;
-  }*/
-  updateClient(client: Client): void {
+
+  updateClient(client: Client) {
+    return this.httpClient.put(this.API_URL + client.id, client);
+  }
+
+  /*updateClient(client: Client): void {
     this.httpClient.put(this.API_URL + client.id, client).subscribe(data => {
         this.dialogData = data;
         console.log('Successfully edited', 3000);
@@ -49,11 +64,9 @@ export class ClientService {
         console.error('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
       }
     );
-  }
-
-  /*deleteClient (id: number): void {
-    console.log(id);
   }*/
+
+
   deleteClient(id: number): void {
     this.httpClient.delete(this.API_URL + id).subscribe(data => {
       // console.log(data['']);
@@ -65,7 +78,25 @@ export class ClientService {
     );
   }
 
-  addClient(client: Client): void {
+
+  addClient(client: Client) {
+ return this.httpClient.post(this.API_URL, client);
+  // this.items.unshift(client);
+  // return of(this.items.slice()).pipe(delay(1000));
+   /*.subscribe(addedData => {
+    //this.items.unshift(addedData);
+    //this.getItems();
+
+    this.items.unshift(addedData);
+    return of(this.items.slice()).pipe(delay(1000));
+  },
+  (err) => {
+    console.log(err);
+  });*/
+
+
+  }
+  /*addClient(client: Client): void {
     this.httpClient.post(this.API_URL, client).subscribe(data => {
       this.dialogData = data;
      // this.toasterService.showToaster('Successfully added', 3000);
@@ -74,6 +105,9 @@ export class ClientService {
         console.error('error while add client');
      // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
     });
-   }
+   }*/
+
+
 
 }
+

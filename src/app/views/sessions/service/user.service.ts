@@ -7,7 +7,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 @Injectable()
 export class UserService {
 
-  private readonly API_URL = 'http://localhost:8080/smartUser/users/';
+  private readonly API_URL = 'http://192.168.1.92:8080/smartUser/users/';
 
   data: any;
 

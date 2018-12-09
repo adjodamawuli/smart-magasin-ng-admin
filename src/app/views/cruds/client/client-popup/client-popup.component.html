@@ -1,0 +1,63 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="nom"
+        [formControl]="itemForm.controls['nom']"
+        placeholder="Nom">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="text"
+        name="prenom"
+        [formControl]="itemForm.controls['prenom']"
+        placeholder="Prénom">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="text"
+        name="tel"
+        [formControl]="itemForm.controls['tel']"
+        placeholder="Tel">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="createdAt"
+        [formControl]="itemForm.controls['createdAt']"
+        placeholder="Date création">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="updatedAt"
+        [formControl]="itemForm.controls['updatedAt']"
+        placeholder="Date modification">
+      </mat-form-field>
+    </div>
+
+
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

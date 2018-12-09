@@ -1,5 +1,5 @@
 import { UserService } from './service/user.service';
-import { ClientService } from './service/client.service';
+//import { ClientService } from './service/client.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +40,7 @@ import { ErrorComponent } from './error/error.component';
   declarations: [ForgotPasswordComponent, LockscreenComponent, SigninComponent, SignupComponent, NotFoundComponent, ErrorComponent]
   ,
   providers: [
-    ClientService,
+    //ClientService,
     UserService
   ],
 })
