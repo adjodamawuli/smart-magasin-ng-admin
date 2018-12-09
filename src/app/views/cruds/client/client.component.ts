@@ -45,11 +45,13 @@ export class ClientComponent implements OnInit {
         console.log(err);
       });
   }
-  getItems(result) {
+  getItems(result?) {
     this.clientService.getItems()
       .subscribe(data => {
         this.items = data;
-        this.items.unshift(result);
+        if(result){
+          this.items.unshift(result);
+        }
       },
       (err) => {
         console.log(err);
@@ -74,12 +76,10 @@ export class ClientComponent implements OnInit {
           this.clientService.setItems(this.items);
 
           this.clientService.addClient(res).subscribe(result => {
-           // this.items.unshift(addedData);
             this.getItems(result);
-            // this.items = result;
             this.items.slice();
             this.loader.close();
-            this.snack.open('Member Added!', 'OK', { duration: 4000 });
+            this.snack.open('Ajout avec succès!', 'OK', { duration: 4000 });
           },
           (err) => {
             console.log(err);
@@ -94,13 +94,12 @@ export class ClientComponent implements OnInit {
                   return Object.assign({}, i, updatedData);
                 }
                 return i;
-              })
+              });
 
               this.loader.close();
-              this.snack.open('Member Updated!', 'OK', { duration: 4000 })
-            })
+              this.snack.open('Modification avec succsès!', 'OK', { duration: 4000 })
+            });
         }
-        console.log(this.items);
       });
   }
 
@@ -109,9 +108,11 @@ export class ClientComponent implements OnInit {
       const index = this.items.indexOf(row);
       if (index > -1) {
         this.items.splice(index, 1);
-      }
-      console.log('delete client' + row.id);
-      },
+        this.clientService.setItems(this.items);
+        this.getItems();
+        console.log('delete client' + row.id);
+        this.snack.open('Suppression avec succès!', 'OK', { duration: 4000 });
+      }},
       (err) => {
         console.log(err);
       });
