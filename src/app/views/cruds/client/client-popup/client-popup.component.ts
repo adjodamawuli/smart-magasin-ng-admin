@@ -21,6 +21,7 @@ export class ClientPopupComponent implements OnInit {
   }
   buildItemForm(item) {
     this.itemForm = this.fb.group({
+      id:[item.id],
       nom: [item.nom || '', Validators.required],
       prenom: [item.prenom || ''],
       tel: [item.tel || ''],

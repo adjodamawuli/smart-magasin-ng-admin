@@ -67,15 +67,16 @@ export class ClientService {
   }*/
 
 
-  deleteClient(id: number): void {
-    this.httpClient.delete(this.API_URL + id).subscribe(data => {
+  deleteClient(id: number) {
+   return  this.httpClient.delete(this.API_URL + id);
+    /*.subscribe(data => {
       // console.log(data['']);
       console.log('delete client' + id);
       },
       (err: HttpErrorResponse) => {
         console.error('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
       }
-    );
+    );*/
   }
 
 

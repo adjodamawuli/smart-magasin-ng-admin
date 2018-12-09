@@ -86,10 +86,11 @@ export class ClientComponent implements OnInit {
           });
 
         } else {
+
           this.clientService.updateClient(res)
             .subscribe(updatedData => {
               this.items = this.items.map(i => {
-                if(i._id === data.id) {
+                if(i.id === res.id) {
                   return Object.assign({}, i, updatedData);
                 }
                 return i;
@@ -103,7 +104,17 @@ export class ClientComponent implements OnInit {
       });
   }
 
-  deleteItem(row) {
+  deleteItem(row: Client) {
+    this.clientService.deleteClient(row.id).subscribe(data => {
+      const index = this.items.indexOf(row);
+      if (index > -1) {
+        this.items.splice(index, 1);
+      }
+      console.log('delete client' + row.id);
+      },
+      (err) => {
+        console.log(err);
+      });
   }
 
 }
